@@ -1,6 +1,6 @@
 import time
 
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 import RPi.GPIO as GPIO
 
 app = Flask(__name__)
@@ -19,7 +19,8 @@ def open_door():
     GPIO.output(11, True)
     time.sleep(5)
     GPIO.output(11, False)
-    return "The door should be open"
+    return redirect('/?opened=true')
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', 80)
