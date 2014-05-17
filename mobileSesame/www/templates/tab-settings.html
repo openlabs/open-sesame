@@ -1,5 +1,12 @@
 <ion-view title="Settings">
   <ion-content class="has-header padding">
     <h1>Settings</h1>
+  	<label class="item item-input">
+	    <input type="text" ng-model="settings.piPath" placeholder="Pi Address">
+	  </label>
+  	<button class="button button-block button-outline button-positive" ng-click="savePath()">
+    	Save
+  	</button>
+  	<div>{{message}}</div>
   </ion-content>
 </ion-view>
