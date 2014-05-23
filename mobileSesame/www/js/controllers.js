@@ -7,14 +7,21 @@ angular.module('starter.controllers', [])
       alert("Add path to Pi in settings tab.");
       return;
     }
-    $http.post('http://' + localStorage.getItem('piPath') + '/open-door', {})
-    .success(function(data){
-      console.log('The door was opened successfully');
-    })
-    .error(function(data, status, headers, config){
-      console.log('There was an error in opening');
-      alert("Wrong configuration or Pi not ready.");
-    });
+    $http.post('http://' + localStorage.getItem('piPath') + '/open-door', {}, {timeout: 2500})
+      .success(function(data){
+        console.log('The door was opened successfully');
+      })
+      .error(function(data, status, headers, config){
+        console.log('There was an error in opening locally');
+        $http.post('http://118.91.181.252/open-door', {})
+          .success(function(data){
+            console.log('Door was opened over the internet');
+          })
+          .error(function(data){
+            console.log(data);
+            alert("Wrong configuration or Pi not ready.");
+          })
+      });
   };
 })
 
