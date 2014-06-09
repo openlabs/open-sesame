@@ -1,25 +1,24 @@
 angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, $http) {
+  $scope.message = "";
   $scope.doOpenDoor = function() {
+    $scope.message = 'Trying, opening door locally.';
     console.log('Open the fucking door');
-    if (!localStorage.getItem('piPath')) {
-      alert("Add path to Pi in settings tab.");
-      return;
-    }
-    $http.post('http://' + localStorage.getItem('piPath') + '/open-door', {}, {timeout: 2500})
+    $http.post('http://192.168.1.201/open-door', {}, {timeout: 2500})
       .success(function(data){
-        console.log('The door was opened successfully');
+        $scope.message = 'The door was opened successfully.';
       })
       .error(function(data, status, headers, config){
-        console.log('There was an error in opening locally');
+        $scope.message = 'Trying, opening door over the Internet.';
         $http.post('http://118.91.181.252/open-door', {})
           .success(function(data){
-            console.log('Door was opened over the internet');
+            console.log('Door was opened over the Internet.');
+            $scope.message = 'Door was opened over the Internet.';
           })
           .error(function(data){
             console.log(data);
-            alert("Wrong configuration or Pi not ready.");
+            $scope.message = 'Pi must be sleeping.';
           })
       });
   };
@@ -34,10 +33,4 @@ angular.module('starter.controllers', [])
 })
 
 .controller('SettingsCtrl', function($scope) {
-  $scope.settings = {};
-  $scope.settings.piPath = localStorage.getItem('piPath');
-  $scope.savePath = function () {
-    localStorage.setItem('piPath', $scope.settings.piPath);
-    $scope.message = "Saved";
-  };
 });
