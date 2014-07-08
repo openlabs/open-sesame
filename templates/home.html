@@ -4,25 +4,28 @@
       button {
         color: #fff;
         cursor: pointer;
-        margin-top: 100px;
         background: #6f5499;
         border: solid;
         border-radius: 6px;
-        font-size: 20px;
+        font-size: 6em;
         font-weight: normal;
         height: 58px;
         text-align: center;
-        width: 241px;
+        width: 100%;
+        height: 100%;
       };
     </style>
   </head>
   <body>
     <form action="{{ url_for('open_door') }}" method="post">
       <center>
-        <button type="submit">Open the Door</button>
+        <button type="submit">
         {% if request.args.get('opened') %}
-          <div style="margin-top: 20px">The door should be open</div>
+                The door should be open
+        {% else %}
+                Open
         {% endif %}
+        </button>
       </center>
     </form>
   </body>
