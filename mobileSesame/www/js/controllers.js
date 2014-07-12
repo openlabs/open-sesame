@@ -1,36 +1,18 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, $http) {
-  $scope.message = "";
+.controller('HomeCtrl', function($scope, $http, $timeout) {
+  $scope.message = "Call Heimdall";
   $scope.doOpenDoor = function() {
-    $scope.message = 'Trying, opening door locally.';
-    console.log('Open the fucking door');
+    $scope.message = 'Calling Heimdall...';
     $http.post('http://192.168.1.201/open-door', {}, {timeout: 2500})
       .success(function(data){
-        $scope.message = 'The door was opened successfully.';
+        $scope.message = 'Bifrost is open for<br>5 sec.';
+        $timeout(function () {
+          $scope.message = "Call Heimdall";
+        }, 5000);
       })
       .error(function(data, status, headers, config){
-        $scope.message = 'Trying, opening door over the Internet.';
-        $http.post('http://118.91.181.252/open-door', {})
-          .success(function(data){
-            console.log('Door was opened over the Internet.');
-            $scope.message = 'Door was opened over the Internet.';
-          })
-          .error(function(data){
-            console.log(data);
-            $scope.message = 'Pi must be sleeping.';
-          })
+        $scope.message = 'Unfortunately<br> He is sleeping';
       });
   };
-})
-
-.controller('FriendsCtrl', function($scope, Friends) {
-  $scope.friends = Friends.all();
-})
-
-.controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
-})
-
-.controller('SettingsCtrl', function($scope) {
 });

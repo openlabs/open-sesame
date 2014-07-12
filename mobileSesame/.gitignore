@@ -1,6 +1,6 @@
 node_modules/
-platforms/android
-plugins/android.json
+platforms/
+plugins/
 # ANDROID / ECLIPSE
 
 # built application files
@@ -12,18 +12,6 @@ plugins/android.json
 
 # Java class files
 *.class
-
-# generated files - android project subfolder
-Android/bin/
-Android/gen/
-Android/assets/
-
-# generated files
-bin/
-gen/
-
-# Local configuration file (sdk path, etc)
-local.properties
 
 # IOS / Xcode
 build/*
